@@ -17,7 +17,8 @@ $dom = new \DOMDocument("1.0");
 $node = $dom->createElement("markers");
 $parnode = $dom->appendChild($node);
 
-$result = $connect->get($center_lat,$center_lng,$radius);
+// Find stores
+$result = $connect->find($center_lat,$center_lng,$radius);
 
 if (count($result)) {
 	header("Content-type: text/xml");
@@ -32,5 +33,3 @@ if (count($result)) {
 	}
 	echo $dom->saveXML();
 } 
-
-?>

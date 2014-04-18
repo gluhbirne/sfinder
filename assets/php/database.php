@@ -1,7 +1,6 @@
 <?php
 namespace StoreFinder;
 
-
 class Database {
 	
 	private $config = array(
@@ -13,8 +12,8 @@ class Database {
 	
 	private $conn;
 	
-	public function __construct() {
-		//global $config;
+	public function __construct() 
+	{
 		try {
 			$this->conn = new \PDO('mysql:host='.$this->config['host'].';dbname='.$this->config['dbname'], $this->config['username'], $this->config['password']);
 			$this->conn->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
@@ -25,7 +24,8 @@ class Database {
 		}
 	}
 	
-	public function get($center_lat,$center_lng,$radius) {
+	public function find($center_lat,$center_lng,$radius) 
+	{
 		
 		try {
 			$stmt = $this->conn->prepare('SELECT address, name, lat, lng, ( 3959 * acos( cos( radians(:center_lat) ) * cos( radians( lat ) ) * cos( radians( lng ) - radians(:center_lng) ) + sin( radians(:center_lat) ) * sin( radians( lat ) ) ) ) AS distance FROM markers HAVING distance < :radius ORDER BY distance LIMIT 0 , 20');
@@ -38,7 +38,8 @@ class Database {
 		}
 	}
 	
-	public function get_stores() {
+	public function get_stores() 
+	{
 		try {
 			$stmt = $this->conn->prepare('SELECT * FROM markers');
     		$stmt->execute();
@@ -48,9 +49,9 @@ class Database {
 		}	
 	}
 	
-	public function add_store($name,$address,$lat,$lng) {
+	public function add_store($name,$address,$lat,$lng) 
+	{
 		
 	}	
 
 }
-
